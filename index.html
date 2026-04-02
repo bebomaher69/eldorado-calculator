@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eldorado Calculator PRO</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+.container {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+input {
+  width: 85%;
+  padding: 12px;
+  margin: 8px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  background: #22c55e;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+.result {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #38bdf8;
+}
+</style>
+</head>
+<body>
+<h2>💸 Eldorado Calculator PRO</h2>
+<div class="container">
+  <input type="number" id="price" placeholder="Price ($)">
+  <input type="number" id="fee" placeholder="Eldorado Fee % (e.g. 12)">
+  <input type="number" id="withdraw" placeholder="Withdrawal Fee ($)">
+  <input type="number" id="rate" placeholder="USD to EGP (e.g. 50)">
+  <button onclick="calc()">Calculate</button>
+  <div class="result" id="result"></div>
+</div>
+<script>
+function calc() {
+  let price = parseFloat(document.getElementById("price").value);
+  let fee = parseFloat(document.getElementById("fee").value);
+  let withdraw = parseFloat(document.getElementById("withdraw").value);
+  let rate = parseFloat(document.getElementById("rate").value);
+  if (!price || !fee || !withdraw || !rate) {
+    document.getElementById("result").innerHTML = "❌ Fill all fields";
+    return;
+  }
+  let afterFee = price - (price * (fee / 100));
+  let netUSD = afterFee - withdraw;
+  let netEGP = netUSD * rate;
+  document.getElementById("result").innerHTML =
+    "💰 USD: $" + netUSD.toFixed(2) + "<br>" +
+    "🇪🇬 EGP: " + netEGP.toFixed(2) + " جنيه";
+}
+</script>
+</body>
+</html>
